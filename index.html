@@ -1,155 +1,73 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>&lt;model-viewer&gt; template</title>
-    <meta charset="utf-8">
-    <meta name="description" content="&lt;model-viewer&gt; template">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link type="text/css" href="./styles.css" rel="stylesheet"/>
-    <script type="module">
-    const modelViewer = document.querySelector('model-viewer');
-    const hotspotsContainer = document.querySelector('.hotspots-container');
-    const hotspots = [];
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Αναφορά Ενοικίασης Αυτοκινήτου</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+ <body>
+  <header>
+    <h1>Αναφορά Ενοικίασης Αυτοκινήτου</h1>
+  </header>
+  <main>
+    <form id="reportForm">
+      <label for="userName">Όνομα Χρήστη:</label>
+      <input type="text" id="userName" class="wide-input" required>
+      
+      <label for="email">Διεύθυνση Email:</label>
+      <input type="email" id="email" class="wide-input" required>
 
-    modelViewer.addEventListener('click', event => {
-      const { clientX, clientY } = event;
+      <div class="date-inputs">
+    <div class="date-input">
+        <label for="rentalDate">Ημερομηνία Ενοικίασης:</label>
+        <input type="date" id="rentalDate" required>
+    </div>
+    <div class="date-input">
+        <label for="returnDate">Ημερομηνία Επιστροφής:</label>
+        <input type="date" id="returnDate" required>
+    </div>
+</div>
 
-      // Get the canvas where the model is rendered
-      const canvas = modelViewer.shadowRoot.querySelector('canvas');
-
-      // Calculate the mouse position relative to the canvas
-      const canvasRect = canvas.getBoundingClientRect();
-      const x = (clientX - canvasRect.left) / canvasRect.width;
-      const y = (clientY - canvasRect.top) / canvasRect.height;
-
-      // Convert 2D coordinates to 3D coordinates
-      const result = modelViewer.positionAndNormalFromPoint(x, y);
-
-      if (result && result.detail) {
-        const { position, normal } = result.detail;
-
-        // Create hotspot element
-        const hotspot = document.createElement('div');
-        hotspot.classList.add('hotspot');
-        hotspot.style.left = `${clientX}px`;
-        hotspot.style.top = `${clientY}px`;
-
-        // Add a marker or icon for the hotspot
-        hotspot.innerHTML = 'H'; // You can replace this with your preferred marker or icon
-
-        // Store the hotspot data
-        const hotspotData = {
-          position: position,
-          marker: 'H', // You can store the marker/icon information here
-        };
-        hotspots.push(hotspotData);
-
-        hotspot.addEventListener('click', () => {
-          // Handle click on the hotspot (e.g., show details or perform an action)
-          alert('Hotspot clicked!');
-        });
-
-        hotspot.addEventListener('contextmenu', (e) => {
-          // Prevent the default context menu (right-click menu)
-          e.preventDefault();
-          
-          // Handle right-click on the hotspot (e.g., delete the hotspot)
-          const index = hotspots.indexOf(hotspotData);
-          if (index !== -1) {
-            hotspotsContainer.removeChild(hotspot);
-            hotspots.splice(index, 1);
-          }
-        });
-
-        hotspotsContainer.appendChild(hotspot);
-      }
-    });
-
-    // Function to save hotspots
-    function saveHotspots() {
-      // Serialize the hotspots data and save it to storage (e.g., localStorage)
-      localStorage.setItem('hotspots', JSON.stringify(hotspots));
-      console.log('Hotspots saved.');
-    }
-
-    // Function to load hotspots
-    function loadHotspots() {
-      // Load the hotspots data from storage (e.g., localStorage)
-      const savedHotspots = localStorage.getItem('hotspots');
-      if (savedHotspots) {
-        hotspots.push(...JSON.parse(savedHotspots));
-
-        // Display saved hotspots
-        hotspots.forEach(hotspotData => {
-          const { position, marker } = hotspotData;
-
-          const hotspot = document.createElement('div');
-          hotspot.classList.add('hotspot');
-          hotspot.innerHTML = marker;
-          hotspotsContainer.appendChild(hotspot);
-
-          hotspot.addEventListener('click', () => {
-            alert('Hotspot clicked!');
-          });
-        });
-
-        console.log('Hotspots loaded.');
-      }
-    }
-
-    // Load hotspots when the page loads
-    loadHotspots();
-
-    // Save hotspots when the user requests it (e.g., button click)
-    document.querySelector('#saveHotspotsButton').addEventListener('click', saveHotspots);
-  </script>
-  <style>
-    .hotspots-container {
-      position: relative;
-      width: 100%;
-      height: 100%;
-    }
-
-    .hotspot {
-      position: absolute;
-      font-size: 20px;
-      color: red;
-      cursor: pointer;
-      user-select: none;
-    }
-
-    #saveHotspotsButton {
-      margin-top: 10px;
-      padding: 5px 10px;
-      background-color: #007bff;
-      color: #fff;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
-
-    #saveHotspotsButton:hover {
-      background-color: #0056b3;
-    }
-  </style>
-  </head>
-  <body>
-    <!-- <model-viewer> HTML element -->
-    <model-viewer src="renault_clio_rs.glb" ar ar-modes="scene-viewer quick-look" camera-controls poster="poster.webp" shadow-intensity="1">
-      <div class="progress-bar hide" slot="progress-bar">
-          <div class="update-bar"></div>
+      <label>Επίπεδο Καυσίμου:</label>
+      <div class="radio-container">
+        <input type="radio" id="fuelKilometers" name="fuelOption" value="kilometers" required>
+        <label for="fuelKilometers">Διαθέσιμα Χιλιόμετρα</label>
       </div>
-      <button slot="ar-button" id="ar-button">
-          View in your space
-      </button>
-      <div id="ar-prompt">
-          <img src="ar_hand_prompt.png">
+      <div class="radio-container">
+        <input type="radio" id="fuelPicture" name="fuelOption" value="picture" required>
+        <label for="fuelPicture">Φωτογραφία Επιπέδου Καυσίμου</label>
       </div>
-    </model-viewer>  
-    <div class="hotspots-container"></div>
-    <button id="saveHotspotsButton">Save Hotspots</button>
-    <script src="script.js"></script>
-    <!-- Loads <model-viewer> for browsers: -->
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.2.0/model-viewer.min.js"></script>
-  </body>
+
+      <div id="kilometersInput" style="display: none;">
+        <label for="availableKilometers">Διαθέσιμα Χιλιόμετρα:</label>
+        <input type="number" id="availableKilometers">
+      </div>
+
+      <div id="pictureInput" style="display: none;">
+        <!-- Button for taking a picture -->
+        <button type="button" id="takePicture">Λήψη Φωτογραφίας</button>
+        <button type="button" id="selectPicture">Επιλογή Φωτογραφίας</button>
+        <input type="file" id="fuelLevelPicture" accept="image/*" capture="environment" multiple style="display: none;">
+      </div>
+
+      <label for="scratchImages">Αναφορά Γρατζουνιών (Μεταφόρτωση Εικόνων):</label>
+      <input type="file" id="scratchImages" accept="image/*" capture="environment" multiple required>
+
+      <button type="submit" id="confirmSubmit">Υποβολή</button>
+      <button type="button" id="sendEmail" class="submit-button" style="display: none;">Αποστολή Email</button>
+      <button type="button" id="generatePDFButton">Δημιουργία PDF Αναφοράς</button>
+    </form>
+
+    <div id="reportList">
+      <!-- Οι αναφορές θα εμφανίζονται εδώ -->
+    </div>
+
+    <div id="imageContainer">
+      <!-- Οι εικόνες θα εμφανίζονται εδώ -->
+    </div>
+  </main>
+  <script src="script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</body>
 </html>
