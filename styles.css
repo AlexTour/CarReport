@@ -1,109 +1,133 @@
-:not(:defined) > * {
-  display: none;
-}
-
-html {
-  height: 100%;
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #00171F; /* Dark blue background color inspired by Sixt */
+    color: #ffffff; /* Text color */
+    padding: 20px;
 }
 
-model-viewer {
-  width: 100%;
-  height: 90%;
-  background-color: #ffffff;
+header {
+    text-align: center;
+    margin-bottom: 20px;
 }
 
-
-.progress-bar {
-  display: block;
-  width: 33%;
-  height: 10%;
-  max-height: 2%;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate3d(-50%, -50%, 0);
-  border-radius: 25px;
-  box-shadow: 0px 3px 10px 3px rgba(0, 0, 0, 0.5), 0px 0px 5px 1px rgba(0, 0, 0, 0.6);
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  background-color: rgba(0, 0, 0, 0.5);
+h1 {
+    font-size: 24px;
+    color: #007bfe; /* Blue heading color inspired by Sixt */
 }
 
-.progress-bar.hide {
-  visibility: hidden;
-  transition: visibility 0.3s;
+main {
+    background-color: #003340; /* Slightly darker blue for main content */
+    border-radius: 5px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Slightly more pronounced box shadow */
 }
 
-.update-bar {
-  background-color: rgba(255, 255, 255, 0.9);
-  width: 0%;
-  height: 100%;
-  border-radius: 25px;
-  float: left;
-  transition: width 0.3s;
+form {
+    max-width: 600px;
+    margin: 0 auto;
 }
 
-#ar-button {
-  background-image: url(ar_icon.png);
-  background-repeat: no-repeat;
-  background-size: 20px 20px;
-  background-position: 12px 50%;
-  background-color: #fff;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  white-space: nowrap;
-  bottom: 16px;
-  padding: 0px 16px 0px 40px;
-  font-family: Roboto Regular, Helvetica Neue, sans-serif;
-  font-size: 14px;
-  color:#4285f4;
-  height: 36px;
-  line-height: 36px;
-  border-radius: 18px;
-  border: 1px solid #DADCE0;
+label {
+    display: block;
+    font-weight: bold;
+    margin-top: 10px;
+    color: #ffffff; /* Label text color */
+    padding: 0px 0px 10px 10px;
 }
 
-#ar-button:active {
-  background-color: #E8EAED;
+input[type="text"],
+input[type="date"],
+input[type="number"],
+input[type="email"],
+input[type="file"],
+button,
+.radio-container {
+    margin-bottom: 15px;
+    background-color: #1e1e1e; /* Dark gray background color */
+    color: #ffffff; /* Input text color */
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    width: 100%; /* Make all input fields the same width */
+    max-width: none; /* Remove the max-width property */
 }
 
-#ar-button:focus {
-  outline: none;
+button {
+    background-color: #ff4500; /* Red button color inspired by Sixt */
+    color: #ffffff; /* Button text color */
+    cursor: pointer;
 }
 
-#ar-button:focus-visible {
-  outline: 1px solid #4285f4;
+button:hover {
+    background-color: #ff3300; /* Slightly darker red on hover */
 }
 
-@keyframes circle {
-  from { transform: translateX(-50%) rotate(0deg) translateX(50px) rotate(0deg); }
-  to   { transform: translateX(-50%) rotate(360deg) translateX(50px) rotate(-360deg); }
+#reportList {
+    margin-top: 20px;
 }
 
-@keyframes elongate {
-  from { transform: translateX(100px); }
-  to   { transform: translateX(-100px); }
+.radio-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #ffffff; /* Radio button label text color */
 }
 
-model-viewer > #ar-prompt {
-  position: absolute;
-  left: 50%;
-  bottom: 60px;
-  animation: elongate 2s infinite ease-in-out alternate;
-  display: none;
+/* Style the radio buttons */
+input[type="radio"] {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    margin: 0;
+    cursor: pointer;
+    background-color: #1e1e1e; /* Dark gray radio button background color */
 }
 
-model-viewer[ar-status="session-started"] > #ar-prompt {
-  display: block;
+input[type="radio"]:checked {
+    background-color: #ff4500; /* Checked radio button background color */
+    border: 1px solid #ff4500; /* Checked radio button border color */
 }
 
-model-viewer > #ar-prompt > img {
-  animation: circle 4s linear infinite;
+/* Style radio button labels */
+input[type="radio"] + label {
+    cursor: pointer;
+    font-weight: normal;
+}
+
+/* Add this style for scratch images */
+input[type="file"][capture="environment"] {
+    background-color: #1e1e1e; /* Dark gray background color */
+    color: #ffffff; /* Input text color */
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Add this style for the image container */
+#imageContainer {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+#imageContainer img {
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.submit-button {
+    width: auto;
+    display: block;
+    margin: 0 auto; /* Center the button horizontally */
 }
