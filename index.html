@@ -1,33 +1,79 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Αναφορά Ενοικίασης Αυτοκινήτου</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
- <body>
+<body>
   <header>
     <h1>Αναφορά Ενοικίασης Αυτοκινήτου</h1>
   </header>
   <main>
     <form id="reportForm">
-      <label for="userName">Όνομα Χρήστη:</label>
-      <input type="text" id="userName" class="wide-input" required>
-      
-      <label for="email">Διεύθυνση Email:</label>
-      <input type="email" id="email" class="wide-input" required>
 
-      <div class="date-inputs">
-    <div class="date-input">
-        <label for="rentalDate">Ημερομηνία Ενοικίασης:</label>
-        <input type="date" id="rentalDate" required>
-    </div>
-    <div class="date-input">
-        <label for="returnDate">Ημερομηνία Επιστροφής:</label>
-        <input type="date" id="returnDate" required>
-    </div>
-</div>
+      <div class="driver-info">
+        <h2>Στοιχεία Οδηγού</h2>
+
+        <label for="userName">Όνομα Χρήστη:</label>
+        <input type="text" id="userName" class="wide-input" required>
+
+        <label for="fatherName">Όνομα Πατέρα:</label>
+        <input type="text" id="fatherName" class="wide-input" required>
+
+        <label for="phoneNumber">Τηλέφωνο:</label>
+        <input type="tel" id="phoneNumber" class="wide-input" required>
+
+        <label for="email">Διεύθυνση Email:</label>
+        <input type="email" id="email" class="wide-input" required>
+
+        <label for="birthdate">Ημερομηνία Γέννησης:</label>
+        <input type="date" id="birthdate" class="wide-input" required>
+
+        <label for="placeOfBirth">Τόπος Γέννησης:</label>
+        <input type="text" id="placeOfBirth" class="wide-input" required>
+
+        <div class="date-inputs">
+          <div class="date-input">
+            <label for="drivingLicenceNumber">Αριθμός Διπλώματος Οδήγησης:</label>
+            <input type="text" id="drivingLicenceNumber" required>
+          </div>
+          <div class="date-input">
+            <label for="drivingLicenceIssueDate">Ημερομηνία Έκδοσης:</label>
+            <input type="date" id="drivingLicenceIssueDate" required>
+          </div>
+          <div class="date-input">
+            <label for="drivingLicenceExpireDate">Ημερομηνία Λήξης:</label>
+            <input type="date" id="drivingLicenceExpireDate" required>
+          </div>
+        </div>
+
+        <div class="date-inputs">
+          <div class="date-input">
+            <label for="passportNumber">Αριθμός Διαβατηρίου:</label>
+            <input type="text" id="passportNumber" required>
+          </div>
+          <div class="date-input">
+            <label for="passportIssueDate">Ημερομηνία Έκδοσης:</label>
+            <input type="date" id="passportIssueDate" required>
+          </div>
+          <div class="date-input">
+            <label for="passportExpireDate">Ημερομηνία Λήξης:</label>
+            <input type="date" id="passportExpireDate" required>
+          </div>
+        </div>
+
+        <label for="permanentAddress">Μόνιμη Διεύθυνση:</label>
+        <input type="text" id="permanentAddress" class="wide-input" required>
+
+        <div class="date-inputs">
+          <div class="date-input">
+            <label for="city">Πόλη:</label>
+            <input type="text" id="city" required>
+          </div>
+          <div class="date-input">
+            <label for="zipCode">Ταχυδρομικός Κώδικας:</label>
+            <input type="text" id="zipCode" required>
+          </div>
+          <div class="date-input">
+            <label for="country">Χώρα:</label>
+            <input type="text" id="country" required>
+          </div>
+        </div>
+      </div>
 
       <label>Επίπεδο Καυσίμου:</label>
       <div class="radio-container">
@@ -45,7 +91,7 @@
       </div>
 
       <div id="pictureInput" style="display: none;">
-        <!-- Button for taking a picture -->
+        <!-- Buttons for taking or selecting a picture -->
         <button type="button" id="takePicture">Λήψη Φωτογραφίας</button>
         <button type="button" id="selectPicture">Επιλογή Φωτογραφίας</button>
         <input type="file" id="fuelLevelPicture" accept="image/*" capture="environment" multiple style="display: none;">
@@ -68,6 +114,5 @@
     </div>
   </main>
   <script src="script.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 </body>
-</html>
