@@ -15,11 +15,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const videoElement = document.createElement("video");
   const takePictureButton = document.getElementById("takePicture");
   const selectPictureButton = document.getElementById("selectPicture");
-  const pictureButtonsContainer = document.getElementById(
-    "pictureButtonsContainer"
-  );
+  const pictureButtonsContainer = document.getElementById("pictureButtonsContainer");
   const sendEmailButton = document.getElementById("sendEmail");
-  const generatePDFButton = document.getElementById("generatePDFButton");
 
   // Toggle display of fuel input options based on radio button selection
   fuelKilometers.addEventListener("change", () => {
@@ -121,9 +118,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Collect form data
     const userName = document.getElementById("userName").value;
-    const rentalDate = document.getElementById("rentalDate").value;
-    const returnDate = document.getElementById("returnDate").value;
+    const fatherName = document.getElementById("fatherName").value;
+    const phoneNumber = document.getElementById("phoneNumber").value;
+    const birthdate = document.getElementById("birthdate").value;
+    const placeOfBirth = document.getElementById("placeOfBirth").value;
     const email = emailInput.value;
+    const permanentAddress = document.getElementById("permanentAddress").value;
+    const city = document.getElementById("city").value;
+    const zipCode = document.getElementById("zipCode").value;
+    const country = document.getElementById("country").value;
+    const drivingLicenceNumber = document.getElementById("drivingLicenceNumber").value;
+    const drivingLicenceIssueDate = document.getElementById("drivingLicenceIssueDate").value;
+    const drivingLicenceExpireDate = document.getElementById("drivingLicenceExpireDate").value;
+    const passportNumber = document.getElementById("passportNumber").value;
+    const passportIssueDate = document.getElementById("passportIssueDate").value;
+    const passportExpireDate = document.getElementById("passportExpireDate").value;
 
     // Add logic to handle user's choice (captured picture or selected images)
     let fuelInfo;
@@ -138,19 +147,19 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     // Create the report and show it
-    createReport(userName, rentalDate, returnDate, fuelInfo);
+    createReport(userName, fatherName, phoneNumber, birthdate, placeOfBirth, email, permanentAddress, city, zipCode, country, drivingLicenceNumber, drivingLicenceIssueDate, drivingLicenceExpireDate, passportNumber, passportIssueDate, passportExpireDate, fuelInfo);
     // Show the "Send Email" button
     sendEmailButton.style.display = "block";
   });
 
-  function createReport(userName, rentalDate, returnDate, fuelInfo) {
+  function createReport(userName, fatherName, phoneNumber, birthdate, placeOfBirth, email, permanentAddress, city, zipCode, country, drivingLicenceNumber, drivingLicenceIssueDate, drivingLicenceExpireDate, passportNumber, passportIssueDate, passportExpireDate, fuelInfo) {
     // Create a new report element
     const reportElement = document.createElement("div");
     reportElement.classList.add("report");
 
-    // Create an element to display the user's name and other information
+    // Create an element to display the user's information
     const userInfo = document.createElement("p");
-    userInfo.textContent = `Όνομα Χρήστη: ${userName}, Ημερομηνία Ενοικίασης: ${rentalDate}, Ημερομηνία Επιστροφής: ${returnDate}, ${fuelInfo}`;
+    userInfo.textContent = `Όνομα Χρήστη: ${userName}, Όνομα Πατέρα: ${fatherName}, Τηλέφωνο: ${phoneNumber}, Ημερομηνία Γέννησης: ${birthdate}, Τόπος Γέννησης: ${placeOfBirth}, Email: ${email}, Διεύθυνση: ${permanentAddress}, Πόλη: ${city}, Ταχυδρομικός Κώδικας: ${zipCode}, Χώρα: ${country}, Αριθμός Διπλώματος Οδήγησης: ${drivingLicenceNumber}, Ημερομηνία Έκδοσης Διπλώματος: ${drivingLicenceIssueDate}, Ημερομηνία Λήξης Διπλώματος: ${drivingLicenceExpireDate}, Αριθμός Διαβατηρίου: ${passportNumber}, Ημερομηνία Έκδοσης Διαβατηρίου: ${passportIssueDate}, Ημερομηνία Λήξης Διαβατηρίου: ${passportExpireDate}, ${fuelInfo}`;
 
     // Append the user info to the report element
     reportElement.appendChild(userInfo);
@@ -167,51 +176,12 @@ document.addEventListener("DOMContentLoaded", () => {
     // Implement email sending logic (replace with actual code)
     if (recipientEmail && reportContent) {
       // Example: Send the email
-      alert(
-        `Email sent to ${recipientEmail} with the report:\n\n${reportContent}`
-      );
+      alert(`Email sent to ${recipientEmail} with the report:\n\n${reportContent}`);
     } else {
-      alert(
-        "Please enter a valid email address and ensure a report is generated."
-      );
+      alert("Please enter a valid email address and ensure a report is generated.");
     }
   }
 
   // Attach an event listener to the "Send Email" button
   sendEmailButton.addEventListener("click", sendReportEmail);
-
-  // Function to generate the PDF report
-  function generatePDF() {
-    const pdfOptions = {
-      margin: 10, // Adjust the margin as needed
-      filename: "report.pdf", // Specify the PDF filename
-      image: { type: "jpeg", quality: 0.98 }, // Image format and quality
-      html2canvas: { scale: 2 }, // Scale for rendering
-      jsPDF: { unit: "mm", format: "a4", orientation: "portrait" } // PDF format and orientation
-    };
-
-    html2pdf()
-      .from(reportList) // Change to the element containing your report data
-      .set(pdfOptions)
-      .outputPdf((pdf) => {
-        // To send the PDF as an email attachment, you need to implement backend logic
-        // Here, you can open the PDF in a new window for testing purposes
-        // Create a Blob containing the PDF data
-        const pdfBlob = pdf.output("blob");
-
-        // Create a URL for the Blob
-        const pdfURL = URL.createObjectURL(pdfBlob);
-
-        // Create a download link
-        const downloadLink = document.createElement("a");
-        downloadLink.textContent = "Download PDF";
-        downloadLink.href = pdfURL;
-        downloadLink.download = "report.pdf"; // Set the desired file name
-
-        document.body.appendChild(downloadLink);
-      });
-  }
-
-  // Attach an event listener to the "Generate PDF" button
-  generatePDFButton.addEventListener("click", generatePDF);
 });
